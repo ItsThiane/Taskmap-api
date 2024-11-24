@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./python-api
+    container_name: flask-api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=apiDB@523
+      - DB_NAME=mydb
+
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD=klinman@5
+      - MYSQL_DATABASE=mydb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql-data:
