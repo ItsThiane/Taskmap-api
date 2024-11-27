@@ -1,8 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
-import mysql.connector
-from mysql.connector import Error
+
 
 def get_db_connection():
     """
@@ -10,13 +9,14 @@ def get_db_connection():
     """
     try:
         connection = mysql.connector.connect(
-            host="mySqlDb",  
+            host="database",  
             user="root",      
             password="TDroot@5",  
             database="taskmap_db"  
         )
+        if connection.is_connected():
+            print("Connexion réussie à la base de données MySQL !")
         return connection
-        print("Connexion réussie à la base de données MySQL !")
     except Error as e:
         print(f"Erreur lors de la connexion à la base de données : {e}")
         return None
