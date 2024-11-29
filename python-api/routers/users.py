@@ -9,7 +9,7 @@ router = APIRouter()
 @router.post("/users", response_model=UserResponse)
 async def add_user(user: UserCreate):
     try:
-        return await create_user(user)
+        return create_user(user)
     except Exception as err:
         raise HTTPException(status_code=400, detail=str(err))
 

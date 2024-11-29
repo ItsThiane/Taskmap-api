@@ -1,18 +1,19 @@
---Creation de la base de donnees
+-- Creation de la base de donnees
 CREATE DATABASE IF NOT EXISTS taskmap_db;
 
---Utiliser la base de donnees
+-- Utiliser la base de donnees
 USE taskmap_db;
 
---Creer la table des utilisateurs
+-- Creer la table des utilisateurs
 CREATE TABLE IF NOT EXISTS users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---Creer la table des taches
+-- Creer la table des taches
 Create TABLE IF NOT EXISTS tasks (
      id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,

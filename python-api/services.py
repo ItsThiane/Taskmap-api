@@ -8,11 +8,11 @@ def add_task(task: TaskCreate):
     cursor = db.cursor()
     try:
         cursor.execute(
-            "INSERT INTO tasks (description, user_id) VALUES (%s, %s)",
-            (task.description, task.user_id)
+            "INSERT INTO tasks (title, description, user_id) VALUES (%s, %s, %s)",
+            (task.title, task.description, task.user_id)
         )
         db.commit()
-        return {"id": cursor.lastrowid, "description": task.description, "user_id": task.user_id, "status": "pending"}
+        return {"id": cursor.lastrowid, "title": task.title, "description": task.description, "user_id": task.user_id, "status": "TO DO"}
     except mysql.connector.Error as err:
         raise Exception(f"Error: {str(err)}")
     finally:
@@ -47,9 +47,9 @@ def create_user(user: UserCreate):
     db = get_db_connection()
     cursor = db.cursor()
     try:
-        cursor.execute("INSERT INTO users (name, email) VALUES (%s, %s)", (user.name, user.email))
+        cursor.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (user.username, user.email, user.password))
         db.commit()
-        return {"id": cursor.lastrowid, "name": user.name, "email": user.email}
+        return {"id": cursor.lastrowid, "username": user.username, "email": user.email}
     except mysql.connector.Error as err:
         raise Exception(f"Error: {str(err)}")
     finally:
