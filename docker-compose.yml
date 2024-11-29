@@ -4,29 +4,34 @@ services:
   api:
     build:
       context: ./python-api
-    container_name: flask-api
+    container_name: fastapi-backend
     ports:
-      - "5000:5000"
+      - "8000:8000"
     depends_on:
-      - database
-    environment:
-      - DB_HOST=database
-      - DB_USER=root
-      - DB_PASSWORD=apiDB@523
-      - DB_NAME=taskmap_db
+      - MySqlDb
+    env_file:
+      - ./python-api/.env
+    networks:
+      - app-networks
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]  
 
-  database:
+  MySqlDb:
     image: mysql:5.7
-    container_name: mySqlDb
-    environment:
-      - MYSQL_ROOT_PASSWORD=TDroot@5
-      - MYSQL_DATABASE=taskmap_db
+    container_name: MySqlDb
+    env_file:
+      - ./python-api/.env
     ports:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./python-api/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
+    networks:
+      - app-networks
+
+networks:
+  app-networks:
+    driver: bridge   
 
 volumes:
   mysql-data:
