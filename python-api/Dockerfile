@@ -1,4 +1,6 @@
-FROM python:3.11
+FROM python:3.9-alpine
+
+RUN apk add --no-cache gcc musl-dev libffi-dev mysql-dev
 
 WORKDIR /app
 

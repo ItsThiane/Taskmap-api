@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: backend-app
+data:
+  DB_HOST: MySqlDb
+  DB_NAME: taskmap_db

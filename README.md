@@ -12,12 +12,11 @@ Taskmap est une API Flask qui permet de gérer des utilisateurs et leurs tâches
 -  Ajouter des utilisateurs à la base de données.
 -  Créer, mettre à jour, supprimer et récupérer des tâches associées à un utilisateur.
 
-  Connexion à la base de données via MySQL Connector.
 
 
-Prérequis
--  Docker
--  Docker Compose
+## Prérequis
+-  Minikube 
+-  Kubectl 
 
 
 
@@ -25,8 +24,22 @@ Instructions pour déployer l'application
 
 
 
+# Kubernetes 
 
-Pour démarrer les conteneurs
 
+## Étapes
+1. Démarrer Minikube avec 3 nœuds :
+   ```bash
+   minikube start --nodes 3 --driver=docker
+
+2. Appliquer les manifestes
 ```bash
-docker-compose up 
+kubectl apply -f k8s/
+
+3. Verifier les pods:
+Kubectl get pods
+
+4. Acceder au service backend
+minicube service backend 
+
+

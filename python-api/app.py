@@ -22,6 +22,14 @@ async def hello_world():
 
 
 
+@app.route("/health/ready")
+async def readiness():
+    return jsonify({"status": "ready"}), 200
+
+@app.route("/health/live")
+async def liveness():
+    return jsonify({"status": "alive"}), 200
+
 
 
 

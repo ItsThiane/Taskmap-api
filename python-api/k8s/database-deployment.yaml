@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: MySqlDb 
+  namespace: backend-app
+  labels:
+    app: MySqlDb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: MySqlDb
+  template:
+    metadata:
+      labels:
+        app: MySqlDb
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret     
+              key: DB_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_NAME
+        ports:
+        - containerPort: 3306
+ 
